@@ -14,10 +14,11 @@ const passportSetup = require('./passport-setup');
 
 const session = require('express-session');
 
+const bodyParser = require('body-parser');
+
 //set view engine
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
-app.use(express.static('public'));
 
 //connect to mongodb
 const mongoose = require('mongoose');
@@ -41,6 +42,9 @@ app.use(session(sess));
 //initialize passport
 app.use(passport.initialize());
 app.use(passport.session());
+
+//body parser
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //use routes, THE SECOND ROUTE HERE MUST BE USED AFTER EXPRESS SESSION OTHERWISE YOU GET THE EXPRESS MIDDLEWARE MISSING ERROR
 app.use('/', indexRouter);
