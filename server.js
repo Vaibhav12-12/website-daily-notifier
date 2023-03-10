@@ -12,13 +12,20 @@ const profileRouter = require('./routes/profile-routes');
 const passport = require('passport');
 const passportSetup = require('./passport-setup');
 
-const session = require('express-session');
+const cookieSession = require('cookie-session');
 
 const bodyParser = require('body-parser');
+
+const nodeMailer = require('nodemailer');
+
+var cron = require('node-cron');
+
+const user = require('./models/user-model');
 
 //set view engine
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
+app.use(express.static(__dirname + '/public'));
 
 //connect to mongodb
 const mongoose = require('mongoose');
@@ -29,15 +36,11 @@ const db = mongoose.connection;
 db.on('error', error => console.log(error));
 db.once('open', () => console.log('Connected to Mongoose'));
 
-//use express session
-//creating sess object to be used in app.use(session(sess))
-let sess = {
-  secret: process.env.secret, //secret from .env for encrypting user id
-  resave: false, //for some 'touch' command
-  saveUninitialized: true, //allows recurring visitors to be saved
-  cookie: { maxAge: 24 * 60 * 60 * 1000 } //defining cookie lifespan (it's 24 hours here in milliseconds)
-}
-app.use(session(sess));
+//use cookie session
+app.use(cookieSession({
+  maxAge: 24 * 60 * 60 * 1000, //cookie lifespan in milliseconds
+  keys: [process.env.secret]
+}));
 
 //initialize passport
 app.use(passport.initialize());
@@ -50,5 +53,43 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/profile', profileRouter);
+
+//setup nodemailer transporter
+const transporter = nodeMailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'b.vaibhav.0012@gmail.com',
+    pass: process.env.nodeMailerPass
+  }
+});
+
+/*
+
+//node-cron setup 0 10 * * *
+cron.schedule('* * * * * *', () => {
+  //Getting users from collection named user which was imported from user-model
+  user.find({} , (err, users) => {
+    if(err) { console.log(err) };
+    users.map(users => {
+      //setup rest of nodemailer
+      const mailOptions = {
+        from: 'b.vaibhav.0012@gmail.com',
+        to: users.email,
+        subject: 'Daily Notifier',
+        text: users.quotes[Math.floor(Math.random() * users.quotes.length)] || 'You have no text in the database'
+      };
+
+      transporter.sendMail(mailOptions, function(error, info){
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent: ' + info.response);
+          }
+        });
+        })
+    });
+});
+
+*/
 
 app.listen(process.env.PORT || 3000);

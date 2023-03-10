@@ -2,22 +2,32 @@ const express = require('express');
 const authRouter = express.Router();
 const passport = require('passport');
 
-//Route for /auth/login
-authRouter.get('/login', (req, res) => {
-  res.render('login');
-})
+const userSchema = require('../models/user-model');
 
 //Route for /auth/logout
-authRouter.get('/logout', (req, res) => {
-  req.logout(function(err) {
-    if (err) { return next(err); }
-    res.redirect('/');
-  }); //is asynchronous
+authRouter.get('/logout', async (req, res) => {
+  await req.logout(function(err) {
+    if (err) { return next(err) }
+  }) //is asynchronous
+  res.redirect('/');
+});
+
+//Route for /auth/deleteUser
+authRouter.get('/deleteUser', async (req, res) => {
+  await userSchema.deleteOne(
+    {
+      googleId: req.user.googleId
+    }
+  )
+  await req.logout(function(err) {
+    if (err) { return next(err) }
+  })
+  res.redirect('/');
 });
 
 //Route for /auth/google
 authRouter.get('/google', passport.authenticate('google', {
-  scope: ['profile']
+  scope: ['profile', 'email'],
 }));
 
 //Route for /auth/google/redirect

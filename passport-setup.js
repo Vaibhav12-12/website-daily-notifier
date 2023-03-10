@@ -30,6 +30,7 @@ passport.use(
     clientSecret: process.env.clientSecret
   }, (accessToken, refreshToken, profile, done) => {
     //check if user already exists
+    console.log(profile);
     User.findOne({googleId: profile.id}).then((currentUser) => {
       if(currentUser) {
         //already have the user
@@ -39,7 +40,8 @@ passport.use(
         //create new user if they don't exist
         new User({
           username: profile.displayName,
-          googleId: profile.id
+          googleId: profile.id,
+          email: profile.emails[0].value
         }).save().then((newUser) => {
           console.log('New user created --> ' + newUser);
           done(null, newUser); //send user for cookie storage

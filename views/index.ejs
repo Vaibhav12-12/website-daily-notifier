@@ -5,15 +5,27 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Daily Notifier</title>
+  <link rel="stylesheet" type="text/css" href="/style-index.css">
 </head>
 <body>
-  <h1>Home</h1>
-  <br>
-  <ul>
-    <a href="/auth/login">Login</a><br>
-    <a href="/auth/logout">Logout</a><br>
-    <a href="/">Homepage</a>
-  </ul>
-  <a href="/auth/google">Google</a>
+  <div class="outer">
+  <div class="container-index">
+    <h1>Daily Notifier</h1>
+    <p>A simple web application that sends you daily emails at 10 A.M (G.M.T +5:30 or India Standard Time).</p>
+    <p>You can log in with your Gmail id and write texts that you want to be sent to you everyday. The texts sent are picked randomly.</p>
+    <p>Any archived texts will not be sent to you.</p>
+    <br>
+    <div>
+      <nav>
+        <% if (!user) { %>
+        <a href="/auth/google"><button class="button-30">Login</button></a>
+        <% } else { %>
+        <a href="/auth/logout"><button class="button-30">Logout</button></a>
+        <a href="/profile"><button class="button-30">Profile</button></a>
+        <% } %>
+      </nav>
+    </div>
+  <div>
+  </div>
 </body>
 </html>

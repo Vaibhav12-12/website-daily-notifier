@@ -1,5 +1,77 @@
-Profile Page of <%= user.username %>
-<form action="/profile" method="post">
-  <textarea name="content"></textarea>
-  <button type="submit">Submit</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Notifier</title>
+  <link rel="stylesheet" type="text/css" href="/style-profile.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <div class="container-profile">
+    <div class="container-profile-inner">
+      <h1 class="profile-heading">Profile Page of <%= user.username %></h1>
+      <a href="/"><button class="button-17" onclick="return confirm('Back to previous page?');">Homepage</button></a>
+      <a href="/auth/logout" onclick="return confirm('Are you sure you would want to logout?');"><button class="button-17">Logout</button></a>
+      <a href="/auth/deleteUser" onclick="return confirm('Are you sure you would want delete your profile?');"><button class="button-17">Remove Profile</button></a>
+    </div>
+    <form action="/profile" method="post">
+      <textarea type="text" name="content" class="input-bar" placeholder="Write or paste some text..." required></textarea><br>
+      <button class="button-17 submit-button" type="submit">Save</button>
+    </form>
+    <div>
+      <h2>Your Current Texts:</h2>
+      <div class="data-entries">
+      <% if (user.quotes.length === 0) { %>
+          <p>You have no entries.</p>
+      <% } else { %>
+        <% for(let i = user.quotes.length - 1; i >= 0; i--) { %>
+          <div class="data-entries-inner">
+            <p class="data-entries-text"><%= user.quotes[i] %>
+              <form class="data-entries-form" action="/profile/delete" method="post">
+              <button title="delete" class="data-entries-text-button" type="submit" name="delete" value="<%= user.quotes[i] %>" 
+                onclick="return confirm('Are you sure you would like to delete this text?');"
+              ><i class="fa fa-trash"></i></button>
+              </form>
+              <form class="data-entries-form" action="/profile/archive" method="post">
+              <button title="archive" class="data-entries-text-button" type="submit" name="archive" value="<%= user.quotes[i] %>" 
+                onclick="return confirm('Are you sure you would like to archive this text?');"
+              ><i class="fa fa-level-down" aria-hidden="true"></i></button>
+              </form>
+            </p>
+          </div>
+        <% } %>
+      <% } %>
+      </div>
+    </div>
+    <br>
+    <div>
+      <h2>Your Current Archives:</h2>
+      <div class="data-entries">
+        <% if (user.archives.length === 0) { %>
+            <p>You have no archives.</p>
+        <% } else { %>
+          <% for(let i = user.archives.length - 1; i >= 0; i--) { %>
+            <div class="data-entries-inner">
+              <p class="data-entries-text"><%= user.archives[i] %>
+                <form class="data-entries-form" action="/profile/archiveDelete" method="post">
+                <button title="delete" class="data-entries-text-button" type="submit" name="delete" value="<%= user.archives[i] %>" 
+                  onclick="return confirm('Are you sure you would like to delete this archive?');"
+                ><i class="fa fa-trash"></i></button>
+                </form>
+                <form class="data-entries-form" action="/profile/unarchive" method="post">
+                <button title="unarchive" class="data-entries-text-button" type="submit" name="archive" value="<%= user.archives[i] %>" 
+                  onclick="return confirm('Are you sure you would like to unarchive this text?');"
+                ><i class="fa fa-level-up" aria-hidden="true"></i></button>
+                </form>
+              </p>
+            </div>
+          <% } %>
+        <% } %>
+        </div>
+    </div>
+  </div>
+  <br>
+</body>
+</html>
