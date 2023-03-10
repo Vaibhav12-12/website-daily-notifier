@@ -63,10 +63,8 @@ const transporter = nodeMailer.createTransport({
   }
 });
 
-/*
-
-//node-cron setup 0 10 * * *
-cron.schedule('* * * * * *', () => {
+//node-cron setup
+cron.schedule('0 10 * * *', () => {
   //Getting users from collection named user which was imported from user-model
   user.find({} , (err, users) => {
     if(err) { console.log(err) };
@@ -76,7 +74,7 @@ cron.schedule('* * * * * *', () => {
         from: 'b.vaibhav.0012@gmail.com',
         to: users.email,
         subject: 'Daily Notifier',
-        text: users.quotes[Math.floor(Math.random() * users.quotes.length)] || 'You have no text in the database'
+        html: `<p>Daily Notifier wishes you a good morning ${users.username}! <br><br> ${users.quotes[Math.floor(Math.random() * users.quotes.length)] || 'You have no texts in the database!'}. <br><br> You can stop these daily mails by removing your profile on the website.</p>`
       };
 
       transporter.sendMail(mailOptions, function(error, info){
@@ -89,7 +87,5 @@ cron.schedule('* * * * * *', () => {
         })
     });
 });
-
-*/
 
 app.listen(process.env.PORT || 3000);
