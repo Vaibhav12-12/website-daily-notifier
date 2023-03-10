@@ -74,7 +74,7 @@ cron.schedule('0 10 * * *', () => {
         from: 'b.vaibhav.0012@gmail.com',
         to: users.email,
         subject: 'Daily Notifier',
-        html: `<p>Daily Notifier wishes you a good morning ${users.username}! <br><br> ${users.quotes[Math.floor(Math.random() * users.quotes.length)] || 'You have no texts in the database!'}. <br><br> You can stop these daily mails by removing your profile on the website.</p>`
+        html: `<p>Daily Notifier wishes you a good morning ${users.username}! <br><br> ${users.quotes[Math.floor(Math.random() * users.quotes.length)] || 'You have no texts in the database'}. <br><br> You can stop these daily mails by removing your profile on the website.</p>`
       };
 
       transporter.sendMail(mailOptions, function(error, info){
