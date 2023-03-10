@@ -48,18 +48,94 @@ a {
 }
 
 html {
-  background: url('Website-Background.png');
-  background-repeat: no-repeat;
-  background-size: 1280px 720px;
-  background-position: 20rem 0;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
   font-family: "JetBrains Mono", monospace;
 }
 
 .container-index {
   display: flex;
   flex-direction: column;
-  margin: 5% 50% 0 4rem;
 }
+
+/* SMARTPHONES SMALL PORTRAIT */
+@media only screen and (min-width: 320px) and (max-width: 425px){
+  .container-index {
+    align-items: center;
+    text-align: center;
+    margin: 0 2.5rem;
+  }
+}
+
+/* SMARTPHONES LARGE PORTRAIT */
+@media only screen and (min-width: 425px) and (max-width: 479px){
+  html {
+    background: url('Website-Background.png');
+    background-repeat: no-repeat;
+    background-size: 640px 360px;
+    background-position: -5rem 25rem;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .container-index {
+    align-items: center;
+    text-align: center;
+    margin: 0 2.5rem;
+  }
+}
+
+/* SMARTPHONES LARGE LANDSCAPE */
+@media only screen and (min-width: 480px) and (max-width: 767px){
+  .container-index {
+    align-items: center;
+    text-align: center;
+    margin: 0 2.5rem 2.5rem 2.5rem;
+  }
+}
+
+/* TABLETS PORTRAIT */
+@media only screen and (min-width: 768px) and (max-width: 991px){
+  html {
+    background: url('Website-Background.png');
+    background-repeat: no-repeat;
+    background-size: 1024px 576px;
+    background-position: -2.5rem 10rem;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .container-index {
+    margin: 5% 50% 0 2rem;
+  }
+}
+
+/* TABLET LANDSCAPE / DESKTOP */
+@media only screen and (min-width: 992px) and (max-width: 1024px) {
+  html {
+    background: url('Website-Background.png');
+    background-repeat: no-repeat;
+    background-size: 1024px 576px;
+    background-position: 7.5rem 10rem;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .container-index {
+    margin: 5% 50% 0 4rem;
+  }
+}
+
+/* 1440P LAPTOP */
+@media only screen and (min-width: 1440px) {
+  html {
+    background: url('Website-Background.png');
+    background-repeat: no-repeat;
+    background-size: 1024px 576px;
+    background-position: 37.5rem 10rem;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .container-index {
+    margin: 5% 50% 0 4rem;
+  }
+}  

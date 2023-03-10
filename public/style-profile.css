@@ -87,10 +87,15 @@ html {
   align-items: center;
 }
 
+.profile-heading {
+  margin-bottom: 1rem;
+}
+
 .container-profile-inner {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  margin: 0.75rem 1rem;
+  margin: 2rem 1rem 1rem 1rem;
 }
 
 .input-bar {
@@ -107,11 +112,6 @@ html {
 .input-bar::placeholder {
   padding-left: 0.75rem;
   font-size: 1.5rem;
-}
-
-.profile-heading {
-  padding-right: 5rem;
-  margin-top: 1.5rem;
 }
 
 .submit-button {
@@ -165,4 +165,88 @@ html {
 .data-entries-form {
   display: flex;
   flex-direction: row;
+}
+
+/* SMARTPHONES LARGE TO SMALL PORTRAIT */
+@media only screen and (min-width: 320px) and (max-width: 479px){
+  .container-profile-inner {
+    margin: 1rem;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  .button-17 {
+    transform: scale(0.8);
+  }
+
+  a {
+    margin: -0.25rem;
+  }
+
+  .input-bar {
+    width: 90vw;
+    max-width: 90vw;
+    height: 7.5vw;
+    min-height: 7.5vw;
+  }
+
+  .input-bar::placeholder {
+    padding-left: 0.25rem;
+    padding-top: 0.25rem;
+    font-size: 1rem;
+  }
+
+  .data-entries {
+    width: 90vw;
+    max-width: 90vw;
+  }
+}
+
+/* SMARTPHONES SMALL PORTRAIT EXTRA QUERIES */
+@media only screen and (min-width: 320px) and (max-width: 425px){
+  .input-bar::placeholder {
+    padding-top: 0;
+  }
+
+  h1 {
+    font-size: 16px;
+  }
+
+  .button-17 {
+    transform: scale(0.75);
+  }
+
+  a {
+    margin: -1rem;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+}
+
+/* SMARTPHONES MEDIUM PORTRAIT EXTRA QUERIES */
+@media only screen and (min-width: 375px) and (max-width: 425px){
+  a {
+    margin: -0.5rem;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+}
+
+
+/* 1440P LAPTOP */
+@media only screen and (min-width: 1440px) {
+  .container-profile-inner {
+    flex-direction: row;
+  }
+
+  .profile-heading {
+    margin-bottom: 0;
+    padding-right: 5rem;
+  }
 }
